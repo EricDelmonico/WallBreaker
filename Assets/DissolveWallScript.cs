@@ -28,7 +28,7 @@ public class DissolveWallScript : MonoBehaviour
         float oneSixtieth = Time.deltaTime;
         yield return new WaitForSeconds(oneSixtieth);
         time += oneSixtieth / dissolveSeconds;
-        if (time <= 1)
+        if (time <= 0.9f)
         {
             StartCoroutine(DissolveWall(time));
         }

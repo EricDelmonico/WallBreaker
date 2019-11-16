@@ -7745,15 +7745,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3947320989191341939}
-  - component: {fileID: 6726609641003813635}
   - component: {fileID: 6453897265022617344}
+  - component: {fileID: 7075455837279151493}
   m_Layer: 2
   m_Name: SceneColorChanger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3947320989191341939
 Transform:
   m_ObjectHideFlags: 0
@@ -7769,20 +7769,6 @@ Transform:
   m_Father: {fileID: 8893561754805500494}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6726609641003813635
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 940030029079359962, guid: 10adce681de927742aa0fb7901c4c26f,
-    type: 3}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4638788191017032141}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5, y: 5, z: 5}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6453897265022617344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7799,6 +7785,19 @@ MonoBehaviour:
   fogColor: {r: 0.65882355, g: 0.07058824, b: 0.05490196, a: 1}
   light: {fileID: 2574822530232970560}
   lightColor: {r: 1, g: 0.9882353, b: 0.34509805, a: 1}
+--- !u!65 &7075455837279151493
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4638788191017032141}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4794738861381005465
 GameObject:
   m_ObjectHideFlags: 0
@@ -14525,13 +14524,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8491496895389336969}
-  m_LocalRotation: {x: 0.052733, y: -0, z: -0, w: 0.9986087}
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
   m_LocalPosition: {x: -0.9388989, y: 15.278211, z: -53.362297}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8893561754805500494}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 6.0460005, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!108 &2574822530232970560
 Light:
   m_ObjectHideFlags: 0
