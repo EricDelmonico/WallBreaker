@@ -41,13 +41,10 @@ public class PlayerMovement : MonoBehaviour
     private GameObject fakeWall;
     private bool wallDestroyed;
 
-<<<<<<< HEAD
     private UIManager manager;
-=======
     private float colorLerpSeconds = .5f;
     [SerializeField]
     private Material shaderMaterial;
->>>>>>> 159fde20ebca5672a619981d98aa913e08423ee2
 
     // Start is called before the first frame update
     void Start()
@@ -208,7 +205,7 @@ public class PlayerMovement : MonoBehaviour
         Teleport();
         for (int i = 0; i < walls.Count; i++)
         {
-            walls[i].ResetWall();
+            walls[i].ResetWall((score + 1) % 2);
         }
         changeWall = true;
         currentWall = -1;
