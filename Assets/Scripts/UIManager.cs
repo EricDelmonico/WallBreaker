@@ -26,25 +26,28 @@ public class UIManager : MonoBehaviour
         
     }
 
-    void PlayGame()
+    public void PlayGame()
     {
-        mainMenu.SetActive(false);
+        SceneManager.LoadScene(1);
         gameMenu.SetActive(true);
-        gameOverMenu.SetActive(false);
     }
 
-    void GameOver()
+    public void GameOver()
     {
+        SceneManager.LoadScene(0);
         mainMenu.SetActive(false);
-        gameMenu.SetActive(false);
         gameOverMenu.SetActive(true);
     }
 
-    void ToMainMenu()
+    public void ToMainMenu()
     {
         mainMenu.SetActive(true);
-        gameMenu.SetActive(false);
         gameOverMenu.SetActive(false);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
 }

@@ -141,11 +141,9 @@ public class PlayerMovement : MonoBehaviour
 
         if(teleportDis == 384)
         {
-            Debug.Log("Will teleport");
             Vector3 distance = transform.position - teleportPos;
             if (distance.magnitude < 0.5f && distance.magnitude > -0.5f)
             {
-                Debug.Log("teleporting");
                 Teleport();
             }
         }
@@ -159,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(teleportDis == 384)
         {
-            position.z -= 484;
+            position.z -= 514;
             gameObject.transform.position = position;
         }
         else
