@@ -26,7 +26,7 @@ public class MakeCubes : MonoBehaviour
     {
         wallSolved = false;
 
-        int initial_size = 4;
+        int initial_size = 3;
         // start of the game is 3x3
         wall = new CubeScript[initial_size, initial_size];
         cubemap = new int[initial_size, initial_size];
@@ -70,7 +70,7 @@ public class MakeCubes : MonoBehaviour
             }
         }
 
-        if (solved && !wallSolved)
+        if (solved && !wallSolved || (wallSolved && !solved && transform.childCount > 0))
         {
             wallSolved = true;
             // wall dissolves here
@@ -175,6 +175,11 @@ public class MakeCubes : MonoBehaviour
 
     public void DisplayPattern()
     {
-        StartCoroutine(DisplayForSeconds(1.75f));
+        StartCoroutine(DisplayForSeconds(1f));
+    }
+
+    public void Solve()
+    {
+
     }
 }

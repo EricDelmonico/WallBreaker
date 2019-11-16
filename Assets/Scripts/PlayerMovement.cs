@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         if (scenery != null)
         {
             currentScenery = Instantiate(scenery[sceneryIndex], Vector3.zero, Quaternion.identity);
+            currentScenery.transform.GetChild(1);
             sceneryIndex++;
         }
     }
@@ -89,16 +90,18 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Teleport()
     {
-        position.z -= teleportDis;
+        position.z -= teleportDis - (speed * Time.deltaTime);
         gameObject.transform.position = position;
     }
 
     void ResetScene()
     {
         score++;
-        if (score % 3 == 0 && scenery != null)
+        if (score % 2 == 0 && scenery != null)
         {
-            currentScenery = Instantiate(scenery[0], Vector3.zero, Quaternion.identity);
+            Destroy(currentScenery);
+            currentScenery = Instantiate(scenery[sceneryIndex], Vector3.zero, Quaternion.identity);
+            currentScenery.transform.GetChild(1);
             // if all the scenery has been cycled 
             // through, loop back to the beginning
             if (sceneryIndex + 1 >= scenery.Length)
@@ -113,8 +116,9 @@ public class PlayerMovement : MonoBehaviour
         {
             walls[i].ResetWall();
         }
-        changeWall = true;
+        changeWall = false;
         currentWall = 0;
+        walls[0].DisplayPattern();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -132,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
         if(collidingWall && !previousCollide)
         {
             lives--;
+            walls[currentWall].wallSolved = true;
         }
     }
 }
