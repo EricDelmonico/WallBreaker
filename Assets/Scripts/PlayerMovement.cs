@@ -18,9 +18,14 @@ public class PlayerMovement : MonoBehaviour
     private int currentWall;
     private bool changeWall;
 
+    private bool collidingWall;
+    private bool previousCollide;
+
     // Start is called before the first frame update
     void Start()
     {
+        collidingWall = false;
+
         position = gameObject.transform.position;
         teleportPos = new Vector3(0, 0, teleportDis);
 
@@ -59,6 +64,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (walls[walls.Count - 1].wallSolved)
             ResetScene();
+
+        ChangeLives();
+
+        previousCollide = collidingWall;
     }
 
     /// <summary>
@@ -81,5 +90,23 @@ public class PlayerMovement : MonoBehaviour
         }
         changeWall = true;
         currentWall = 0;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+         collidingWall = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        collidingWall = false;
+    }
+
+    void ChangeLives()
+    {
+        if(collidingWall && !previousCollide)
+        {
+            lives--;
+        }
     }
 }

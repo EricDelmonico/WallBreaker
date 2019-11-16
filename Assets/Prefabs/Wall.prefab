@@ -45,5 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cube: {fileID: 7305856971267746172, guid: f1b42a642de188f41917261867992ddd, type: 3}
   dissolveMaterial: {fileID: 2100000, guid: 944394e579c20bf4cb65970509d9490c, type: 2}
+  wallSolved: 0
   dissolveWall: {fileID: 7009997722769589299, guid: 690421e648bd64f42983fc1a84a6549f,
     type: 3}
