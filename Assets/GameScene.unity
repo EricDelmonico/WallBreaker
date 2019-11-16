@@ -1083,6 +1083,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2239643473945872780, guid: 59a69c74cb5546245ac14c2669c71559,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2239643473945872780, guid: 59a69c74cb5546245ac14c2669c71559,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.45
+      objectReference: {fileID: 0}
     - target: {fileID: 2627189009081860625, guid: 59a69c74cb5546245ac14c2669c71559,
         type: 3}
       propertyPath: m_Name
@@ -1152,6 +1162,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2239643473945872780, guid: 59a69c74cb5546245ac14c2669c71559,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2239643473945872780, guid: 59a69c74cb5546245ac14c2669c71559,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.45
+      objectReference: {fileID: 0}
     - target: {fileID: 2627189009081860625, guid: 59a69c74cb5546245ac14c2669c71559,
         type: 3}
       propertyPath: m_Name
@@ -1403,6 +1423,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2239643473945872780, guid: 59a69c74cb5546245ac14c2669c71559,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2239643473945872780, guid: 59a69c74cb5546245ac14c2669c71559,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.45
+      objectReference: {fileID: 0}
     - target: {fileID: 2627189009081860625, guid: 59a69c74cb5546245ac14c2669c71559,
         type: 3}
       propertyPath: m_Name
@@ -3006,6 +3036,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2239643473945872780, guid: 59a69c74cb5546245ac14c2669c71559,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2239643473945872780, guid: 59a69c74cb5546245ac14c2669c71559,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.45
+      objectReference: {fileID: 0}
     - target: {fileID: 2627189009081860625, guid: 59a69c74cb5546245ac14c2669c71559,
         type: 3}
       propertyPath: m_Name
