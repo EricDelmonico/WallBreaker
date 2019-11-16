@@ -14,10 +14,19 @@ public class MakeCubes : MonoBehaviour
     // the actual wall
     private CubeScript[,] wall;
 
+    [SerializeField]
+    private Material dissolveMaterial;
+
+    private bool wallSolved;
+    [SerializeField]
+    private GameObject dissolveWall;
+
     // Start is called before the first frame update
     void Start()
     {
-        int initial_size = 3;
+        wallSolved = false;
+
+        int initial_size = 4;
         // start of the game is 3x3
         wall = new CubeScript[initial_size, initial_size];
         cubemap = new int[initial_size, initial_size];
@@ -61,14 +70,24 @@ public class MakeCubes : MonoBehaviour
             }
         }
 
-        if (solved)
+        if (solved && !wallSolved)
         {
+            wallSolved = true;
             // wall dissolves here
-            for (int i = transform.childCount - 1; i != -1; i--)
+            List<GameObject> g = new List<GameObject>();
+            for (int i = 0; i < transform.childCount; i++)
             {
-                Destroy(transform.GetChild(i).gameObject);
+                g.Add(transform.GetChild(i).gameObject);
+                g[i].GetComponent<Renderer>().material = dissolveMaterial;
             }
-            ResetWall();
+            dissolveMaterial.SetFloat("Dissolvedness", 0);
+            int midIndex = size % 2 == 0 ? size / 2 - 1 : size / 2;
+            GameObject _g = wall[midIndex, midIndex].gameObject;
+            Vector3 midWall = size % 2 == 0 ? _g.transform.position + new Vector3((_g.GetComponent<MeshRenderer>().bounds.size.x / 2f), (_g.GetComponent<MeshRenderer>().bounds.size.x / 2f), 0) : _g.transform.position;
+            GameObject dissolveWallInstance = Instantiate(dissolveWall, midWall, Quaternion.identity);
+            float desiredGirth = size * _g.GetComponent<MeshRenderer>().bounds.size.x;
+            dissolveWallInstance.transform.localScale = new Vector3(desiredGirth, desiredGirth, 1);
+            Destroy(gameObject);
         }
     }
 
