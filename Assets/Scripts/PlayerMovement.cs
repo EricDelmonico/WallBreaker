@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UIManager>();
+        //manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UIManager>();
 
         wallDestroyed = false;
         collidingWall = false;
@@ -148,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        manager.score = score;
+        //manager.score = score;
         
     }
 
