@@ -2177,7 +2177,8 @@ MonoBehaviour:
   mainMenu: {fileID: 1247865242}
   gameMenu: {fileID: 0}
   gameOverMenu: {fileID: 1171669952}
-  finalScore: {fileID: 0}
+  finalScore: {fileID: 2093309251}
+  gameOver: 0
   score: 0
 --- !u!4 &510921626
 Transform:
@@ -5478,7 +5479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1171669953
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10197,6 +10198,7 @@ MonoBehaviour:
   scoreText: {fileID: 0}
   liveText: {fileID: 0}
   fakeWall: {fileID: 0}
+  shaderMaterial: {fileID: 0}
 --- !u!54 &2075140320
 Rigidbody:
   m_ObjectHideFlags: 0
