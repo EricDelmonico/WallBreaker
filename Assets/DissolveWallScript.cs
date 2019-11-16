@@ -7,6 +7,8 @@ public class DissolveWallScript : MonoBehaviour
     private float dissolveSeconds = 0.75f;
     [SerializeField]
     private Material dissolveMaterial;
+    
+    public GameObject decoyWall;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +35,8 @@ public class DissolveWallScript : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            if (decoyWall != null)
+                decoyWall.SetActive(false);
         }
     }
 }

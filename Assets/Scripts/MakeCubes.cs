@@ -20,6 +20,7 @@ public class MakeCubes : MonoBehaviour
     public bool wallSolved;
     [SerializeField]
     private GameObject dissolveWall;
+    public bool lastWall;
 
     // Start is called before the first frame update
     void Start()
@@ -87,6 +88,8 @@ public class MakeCubes : MonoBehaviour
             GameObject dissolveWallInstance = Instantiate(dissolveWall, midWall, Quaternion.identity);
             float desiredGirth = size * _g.GetComponent<MeshRenderer>().bounds.size.x;
             dissolveWallInstance.transform.localScale = new Vector3(desiredGirth, desiredGirth, 1);
+            if (lastWall)
+                dissolveWallInstance.GetComponent<DissolveWallScript>().decoyWall = GameObject.Find("dw");
             for (int i = transform.childCount - 1; i > -1; i--)
             {
                 Destroy(transform.GetChild(i).gameObject);
@@ -123,7 +126,7 @@ public class MakeCubes : MonoBehaviour
     public void ResetWall()
     {
         wallSolved = false;
-        int size = cubemap.GetLength(0);
+        int size = 2;// cubemap.GetLength(0);
         cubemap = new int[size + 1, size + 1];
         wall = new CubeScript[size + 1, size + 1];
 
@@ -196,5 +199,25 @@ public class MakeCubes : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void DoLastWall(GameObject decoyWall)
+    {
+        decoyWall.SetActive(true);
+        float desiredZ = decoyWall.transform.position.z;
+        int size = cubemap.GetLength(0);
+        dissolveMaterial.SetFloat("Dissolvedness", 0);
+        int midIndex = size % 2 == 0 ? size / 2 - 1 : size / 2;
+        GameObject _g = wall[midIndex, midIndex].gameObject;
+        Vector3 midWall = size % 2 == 0 ? _g.transform.position + new Vector3((_g.GetComponent<MeshRenderer>().bounds.size.x / 2f), (_g.GetComponent<MeshRenderer>().bounds.size.x / 2f), 0) : _g.transform.position;
+        midWall.z = desiredZ;
+        decoyWall.transform.position = midWall;
+        float desiredGirth = size * _g.GetComponent<MeshRenderer>().bounds.size.x;
+        decoyWall.transform.localScale = new Vector3(desiredGirth, desiredGirth, 1);
+    }
+
+    public bool Destroyed()
+    {
+        return transform.childCount == 0;
     }
 }

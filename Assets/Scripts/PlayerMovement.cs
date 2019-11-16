@@ -28,16 +28,23 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private GameObject[] scenery;
     private GameObject currentScenery;
+    private GameObject currentDecor;
     private int sceneryIndex;
+    private int prevSceneryIndex;
 
     [SerializeField]
     private Text scoreText;
     [SerializeField]
     private Text liveText;
 
+    [SerializeField]
+    private GameObject fakeWall;
+    private bool wallDestroyed;
+
     // Start is called before the first frame update
     void Start()
     {
+        wallDestroyed = false;
         collidingWall = false;
 
         initialPos = transform.position;
@@ -54,17 +61,30 @@ public class PlayerMovement : MonoBehaviour
             {
                 walls.Add(wall.GetComponent<MakeCubes>());
             }
+            if (wall == null)
+            {
+                walls[i - 1].lastWall = true;
+                break;
+            }
         }
         currentWall = -1;
         changeWall = true;
+        // run this once to display the first wall's pattern
+        if (changeWall && currentWall != walls.Count - 1)
+        {
+            changeWall = false;
+            currentWall++;
+            walls[currentWall].DisplayPattern();
+        }
 
         score = 0;
         sceneryIndex = 0;
         if (scenery != null)
         {
+            currentDecor = Instantiate(scenery[sceneryIndex], Vector3.zero - new Vector3(0, 0, 128), Quaternion.identity);
             currentScenery = Instantiate(scenery[sceneryIndex], Vector3.zero, Quaternion.identity);
             currentScenery.transform.GetChild(1);
-            sceneryIndex++;
+            prevSceneryIndex = sceneryIndex;
         }
     }
 
@@ -77,24 +97,38 @@ public class PlayerMovement : MonoBehaviour
 
         if(walls.Count > 0)
         {
+            wallDestroyed = walls[currentWall].Destroyed();
+            if (wallDestroyed && collidingWall)
+            {
+                collidingWall = false;
+            }
+
             if (changeWall && currentWall != walls.Count - 1)
             {
-                changeWall = false;
-                currentWall++;
-                walls[currentWall].DisplayPattern();
+                if (changeWall && currentWall != walls.Count - 1)
+                {
+                    changeWall = false;
+                    currentWall++;
+                    walls[currentWall].DisplayPattern();
+                }
+
+                if (walls[currentWall].wallSolved && currentWall != walls.Count - 1)
+                {
+                    changeWall = true;
+                }
+
+                if (walls[walls.Count - 1].wallSolved)
+                    ResetScene();
+
+                ChangeLives();
+
+                previousCollide = collidingWall;
             }
 
-            if (walls[currentWall].wallSolved && currentWall != walls.Count - 1)
-            {
-                changeWall = true;
-            }
+            if (walls[0].wallSolved)
+            fakeWall.SetActive(false);
 
-            if (walls[walls.Count - 1].wallSolved)
-                ResetScene();
-
-            ChangeLives();
-
-            previousCollide = collidingWall;
+        previousCollide = collidingWall;       
         }
         
         if(scoreText != null && liveText != null)
@@ -102,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
             scoreText.text = "Score: " + score;
             liveText.text = "Lives: " + lives;
         }
+        
         
 
         if(teleportDis == 384)
@@ -130,36 +165,52 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             position.z -= teleportDis - (speed * Time.deltaTime);
-            gameObject.transform.position = position;
+        gameObject.transform.position = position;
+        collidingWall = false;
         }
+        
         
     }
 
     void ResetScene()
     {
+        walls[walls.Count - 1].DoLastWall(fakeWall);
         score++;
         if (score % 2 == 0 && scenery != null)
         {
-            Destroy(currentScenery);
-            currentScenery = Instantiate(scenery[sceneryIndex], Vector3.zero, Quaternion.identity);
-            currentScenery.transform.GetChild(1);
             // if all the scenery has been cycled 
             // through, loop back to the beginning
+            prevSceneryIndex = sceneryIndex;
             if (sceneryIndex + 1 >= scenery.Length)
             {
                 sceneryIndex = -1;
             }
             sceneryIndex++;
+            Destroy(currentScenery);
+            currentScenery = Instantiate(scenery[sceneryIndex], Vector3.zero, Quaternion.identity);
         }
+        if (score % 2 == 1)
+        {
+            prevSceneryIndex = sceneryIndex;
+        }
+        Destroy(currentDecor);
+        Debug.Log(score % 2 == 0 ? "yes" : "no");
+        currentDecor = Instantiate(scenery[prevSceneryIndex], Vector3.zero - new Vector3(0, 0, 128), Quaternion.identity);
 
         Teleport();
         for (int i = 0; i < walls.Count; i++)
         {
             walls[i].ResetWall();
         }
-        changeWall = false;
-        currentWall = 0;
-        walls[0].DisplayPattern();
+        changeWall = true;
+        currentWall = -1;
+        // run this once to display the first wall's pattern
+        if (changeWall && currentWall != walls.Count - 1)
+        {
+            changeWall = false;
+            currentWall++;
+            walls[currentWall].DisplayPattern();
+        }
     }
 
     //Collision Detection
