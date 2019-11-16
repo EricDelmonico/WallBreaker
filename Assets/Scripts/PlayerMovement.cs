@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
     void ResetScene()
     {
         score++;
-        if (score % 3 == 0)
+        if (score % 3 == 0 && scenery != null)
         {
             currentScenery = Instantiate(scenery[0], Vector3.zero, Quaternion.identity);
             // if all the scenery has been cycled 
