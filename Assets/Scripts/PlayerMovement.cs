@@ -200,7 +200,7 @@ public class PlayerMovement : MonoBehaviour
         Teleport();
         for (int i = 0; i < walls.Count; i++)
         {
-            walls[i].ResetWall();
+            walls[i].ResetWall((score + 1) % 2);
         }
         changeWall = true;
         currentWall = -1;

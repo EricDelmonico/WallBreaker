@@ -123,12 +123,12 @@ public class MakeCubes : MonoBehaviour
         }
     }
 
-    public void ResetWall()
+    public void ResetWall(int increment = 0)
     {
         wallSolved = false;
-        int size = 2;// cubemap.GetLength(0);
-        cubemap = new int[size + 1, size + 1];
-        wall = new CubeScript[size + 1, size + 1];
+        int size = cubemap.GetLength(0) + increment;
+        cubemap = new int[size, size];
+        wall = new CubeScript[size, size];
 
         RandomWall();
 
