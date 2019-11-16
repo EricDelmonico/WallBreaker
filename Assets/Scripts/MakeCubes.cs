@@ -70,7 +70,7 @@ public class MakeCubes : MonoBehaviour
             }
         }
 
-        if (solved && !wallSolved || (wallSolved && !solved && transform.childCount > 0))
+        if (solved && !wallSolved)
         {
             wallSolved = true;
             // wall dissolves here
@@ -180,6 +180,21 @@ public class MakeCubes : MonoBehaviour
 
     public void Solve()
     {
-
+        // solve the puzzle
+        int size = cubemap.GetLength(0);
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                if (cubemap[i, j] == 1)
+                {
+                    wall[i, j].activated = true;
+                }
+                else if (cubemap[i, j] == 0)
+                {
+                    wall[i, j].activated = false;
+                }
+            }
+        }
     }
 }

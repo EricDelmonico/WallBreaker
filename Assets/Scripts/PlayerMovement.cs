@@ -143,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
         if(collidingWall && !previousCollide)
         {
             lives--;
-            walls[currentWall].wallSolved = true;
+            walls[currentWall].Solve();
         }
     }
 }
