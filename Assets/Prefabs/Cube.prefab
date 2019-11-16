@@ -108,3 +108,4 @@ MonoBehaviour:
   notClicked: {fileID: 2100000, guid: e73baddd6aceed14b87e07de396a1729, type: 2}
   activated: 0
   displaying: 0
+  clickNoise: {fileID: 8300000, guid: 62cd4cb416a4fc747901723a74747960, type: 3}
