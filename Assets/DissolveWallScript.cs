@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DissolveWallScript : MonoBehaviour
 {
-    private float dissolveSeconds = 100f;
+    private float dissolveSeconds = 0.75f;
     [SerializeField]
     private Material dissolveMaterial;
 
