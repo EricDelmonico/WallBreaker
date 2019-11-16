@@ -11,7 +11,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 position;
     private Vector3 teleportPos;
 
-    private List<CubeScript> walls;
+    private List<MakeCubes> walls;
+    private int currentWall;
+    private bool changeWall;
 
     // Start is called before the first frame update
     void Start()
@@ -20,15 +22,17 @@ public class PlayerMovement : MonoBehaviour
         teleportPos = new Vector3(0, 0, teleportDis);
 
         // Store all the walls found in the scene
-        walls = new List<CubeScript>();
+        walls = new List<MakeCubes>();
         for (int i = 0; i < 10; i++)
         {
             GameObject wall = GameObject.Find("Wall" + i.ToString());
             if (wall != null)
             {
-                walls.Add(wall.GetComponent<CubeScript>());
+                walls.Add(wall.GetComponent<MakeCubes>());
             }
         }
+        currentWall = -1;
+        changeWall = true;
     }
 
     // Update is called once per frame
@@ -38,8 +42,20 @@ public class PlayerMovement : MonoBehaviour
         position.z += (speed * Time.deltaTime);
         gameObject.transform.position = position;
 
-        if(gameObject.transform.position.z > teleportPos.z)
-            Teleport();
+        if (changeWall && currentWall != walls.Count - 1)
+        {
+            changeWall = false;
+            currentWall++;
+            walls[currentWall].DisplayPattern();
+        }
+
+        if (walls[currentWall].wallSolved && currentWall != walls.Count - 1)
+        {
+            changeWall = true;
+        }
+
+        if (walls[walls.Count - 1].wallSolved)
+            ResetScene();
     }
 
     /// <summary>
@@ -49,5 +65,18 @@ public class PlayerMovement : MonoBehaviour
     {
         position.z -= teleportDis;
         gameObject.transform.position = position;
+    }
+
+    void ResetScene()
+    {
+        // score++
+
+        Teleport();
+        for (int i = 0; i < walls.Count; i++)
+        {
+            walls[i].ResetWall();
+        }
+        changeWall = true;
+        currentWall = 0;
     }
 }

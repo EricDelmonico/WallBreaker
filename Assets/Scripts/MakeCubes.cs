@@ -122,6 +122,7 @@ public class MakeCubes : MonoBehaviour
 
     public void ResetWall()
     {
+        wallSolved = false;
         int size = cubemap.GetLength(0);
         cubemap = new int[size + 1, size + 1];
         wall = new CubeScript[size + 1, size + 1];
