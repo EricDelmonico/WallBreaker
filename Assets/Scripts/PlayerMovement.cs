@@ -11,11 +11,24 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 position;
     private Vector3 teleportPos;
 
+    private List<CubeScript> walls;
+
     // Start is called before the first frame update
     void Start()
     {
         position = gameObject.transform.position;
         teleportPos = new Vector3(0, 0, teleportDis);
+
+        // Store all the walls found in the scene
+        walls = new List<CubeScript>();
+        for (int i = 0; i < 10; i++)
+        {
+            GameObject wall = GameObject.Find("Wall" + i.ToString());
+            if (wall != null)
+            {
+                walls.Add(wall.GetComponent<CubeScript>());
+            }
+        }
     }
 
     // Update is called once per frame
