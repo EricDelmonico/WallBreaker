@@ -70,7 +70,7 @@ Material:
     - _BumpScale: 1
     - _Cull: 2
     - _Cutoff: 0.5
-    - _Dissolvedness: 0.88468146
+    - _Dissolvedness: 0.8776617
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
@@ -91,6 +91,6 @@ Material:
     - Color_7093C145: {r: 0, g: 7.865682, b: 27.85762, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _EdgeColor: {r: 0.6666667, g: 0.88235295, b: 0.9254902, a: 1}
+    - _EdgeColor: {r: 0.44313726, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
