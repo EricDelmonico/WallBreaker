@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 position;
     private Vector3 teleportPos;
+    private Vector3 initialPos;
 
     private List<MakeCubes> walls;
     private int currentWall;
@@ -46,8 +47,10 @@ public class PlayerMovement : MonoBehaviour
         wallDestroyed = false;
         collidingWall = false;
 
+        initialPos = transform.position;
+
         position = gameObject.transform.position;
-        teleportPos = new Vector3(0, 0, teleportDis);
+        teleportPos = new Vector3(transform.position.x, transform.position.y, teleportDis);
 
         // Store all the walls found in the scene
         walls = new List<MakeCubes>();
@@ -92,36 +95,61 @@ public class PlayerMovement : MonoBehaviour
         position.z += (speed * Time.deltaTime);
         gameObject.transform.position = position;
 
-        wallDestroyed = walls[currentWall].Destroyed();
-        if (wallDestroyed && collidingWall)
+        if(walls.Count > 0)
         {
-            collidingWall = false;
-        }
+            wallDestroyed = walls[currentWall].Destroyed();
+            if (wallDestroyed && collidingWall)
+            {
+                collidingWall = false;
+            }
 
-        if (changeWall && currentWall != walls.Count - 1)
-        {
-            changeWall = false;
-            currentWall++;
-            walls[currentWall].DisplayPattern();
-        }
+            if (changeWall && currentWall != walls.Count - 1)
+            {
+                if (changeWall && currentWall != walls.Count - 1)
+                {
+                    changeWall = false;
+                    currentWall++;
+                    walls[currentWall].DisplayPattern();
+                }
 
-        if (walls[currentWall].wallSolved && currentWall != walls.Count - 1)
-        {
-            changeWall = true;
-        }
+                if (walls[currentWall].wallSolved && currentWall != walls.Count - 1)
+                {
+                    changeWall = true;
+                }
 
-        if (walls[walls.Count - 1].wallSolved)
-            ResetScene();
+                if (walls[walls.Count - 1].wallSolved)
+                    ResetScene();
 
-        ChangeLives();
+                ChangeLives();
 
-        if (walls[0].wallSolved)
+                previousCollide = collidingWall;
+            }
+
+            if (walls[0].wallSolved)
             fakeWall.SetActive(false);
 
-        previousCollide = collidingWall;
+        previousCollide = collidingWall;       
+        }
+        
+        if(scoreText != null && liveText != null)
+        {
+            scoreText.text = "Score: " + score;
+            liveText.text = "Lives: " + lives;
+        }
+        
+        
 
-        scoreText.text = "Score: " + score;
-        liveText.text = "Lives: " + lives;
+        if(teleportDis == 384)
+        {
+            Debug.Log("Will teleport");
+            Vector3 distance = transform.position - teleportPos;
+            if (distance.magnitude < 0.5f && distance.magnitude > -0.5f)
+            {
+                Debug.Log("teleporting");
+                Teleport();
+            }
+        }
+        
     }
 
     /// <summary>
@@ -129,9 +157,19 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Teleport()
     {
-        position.z -= teleportDis - (speed * Time.deltaTime);
+        if(teleportDis == 384)
+        {
+            position.z -= 484;
+            gameObject.transform.position = position;
+        }
+        else
+        {
+            position.z -= teleportDis - (speed * Time.deltaTime);
         gameObject.transform.position = position;
         collidingWall = false;
+        }
+        
+        
     }
 
     void ResetScene()
