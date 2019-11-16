@@ -119,6 +119,9 @@ public class PlayerMovement : MonoBehaviour
             fakeWall.SetActive(false);
 
         previousCollide = collidingWall;
+
+        scoreText.text = "Score: " + score;
+        liveText.text = "Lives: " + lives;
     }
 
     /// <summary>
@@ -172,6 +175,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Collision Detection
     private void OnTriggerEnter(Collider other)
     {
          collidingWall = true;
@@ -186,7 +190,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if(collidingWall && !previousCollide)
         {
-            lives--;
+            if (lives <= 0)
+                lives = 0;
+            else
+                lives--;
+
             walls[currentWall].Solve();
         }
     }

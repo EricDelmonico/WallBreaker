@@ -97,7 +97,7 @@ LightmapSettings:
     m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1136,7 +1136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &415146681
 Transform:
   m_ObjectHideFlags: 0
@@ -3995,12 +3995,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1564876102}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!108 &1569240991 stripped
-Light:
-  m_CorrespondingSourceObject: {fileID: 6037740344492842587, guid: 2bd8a489efe9f8d428624faf924a24c0,
-    type: 3}
-  m_PrefabInstance: {fileID: 6037740345071167940}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1627544749
 GameObject:
   m_ObjectHideFlags: 0
@@ -5654,7 +5648,7 @@ PrefabInstance:
     - target: {fileID: 2512179292112739456, guid: 10adce681de927742aa0fb7901c4c26f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8893561754805500494, guid: 10adce681de927742aa0fb7901c4c26f,
         type: 3}
@@ -5876,7 +5870,7 @@ PrefabInstance:
     - target: {fileID: 4292239741295794489, guid: 2bd8a489efe9f8d428624faf924a24c0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6930352608389657836, guid: 2bd8a489efe9f8d428624faf924a24c0,
         type: 3}
