@@ -13,11 +13,18 @@ public class UIManager : MonoBehaviour
     private GameObject gameMenu;
     [SerializeField]
     private GameObject gameOverMenu;
+    [SerializeField]
+    private Text finalScore;
+
+    [HideInInspector]
+    public int score;
 
     // Start is called before the first frame update
     void Start()
     {
         ToMainMenu();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -37,12 +44,14 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(0);
         mainMenu.SetActive(false);
         gameOverMenu.SetActive(true);
+        
     }
 
     public void ToMainMenu()
     {
         mainMenu.SetActive(true);
         gameOverMenu.SetActive(false);
+        finalScore.text = "Final Score: " + score;
     }
 
     public void QuitGame()

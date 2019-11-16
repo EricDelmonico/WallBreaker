@@ -12,7 +12,6 @@ public class ChangeScenery : MonoBehaviour
     void Start()
     {
         RenderSettings.fogColor = fogColor;
-        light.color = lightColor;
     }
 
     // Update is called once per frame

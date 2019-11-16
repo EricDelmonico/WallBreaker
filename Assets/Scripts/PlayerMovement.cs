@@ -41,9 +41,19 @@ public class PlayerMovement : MonoBehaviour
     private GameObject fakeWall;
     private bool wallDestroyed;
 
+<<<<<<< HEAD
+    private UIManager manager;
+=======
+    private float colorLerpSeconds = .5f;
+    [SerializeField]
+    private Material shaderMaterial;
+>>>>>>> 159fde20ebca5672a619981d98aa913e08423ee2
+
     // Start is called before the first frame update
     void Start()
     {
+        manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UIManager>();
+
         wallDestroyed = false;
         collidingWall = false;
 
@@ -83,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
         {
             currentDecor = Instantiate(scenery[sceneryIndex], Vector3.zero - new Vector3(0, 0, 128), Quaternion.identity);
             currentScenery = Instantiate(scenery[sceneryIndex], Vector3.zero, Quaternion.identity);
-            currentScenery.transform.GetChild(1);
+            currentScenery.transform.GetChild(0).gameObject.GetComponent<Light>().color = currentDecor.transform.GetChild(0).gameObject.GetComponent<Light>().color;
             prevSceneryIndex = sceneryIndex;
         }
     }
@@ -95,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         position.z += (speed * Time.deltaTime);
         gameObject.transform.position = position;
 
-        if(walls.Count > 0)
+        if (walls.Count > 0)
         {
             wallDestroyed = walls[currentWall].Destroyed();
             if (wallDestroyed && collidingWall)
@@ -105,40 +115,33 @@ public class PlayerMovement : MonoBehaviour
 
             if (changeWall && currentWall != walls.Count - 1)
             {
-                if (changeWall && currentWall != walls.Count - 1)
-                {
-                    changeWall = false;
-                    currentWall++;
-                    walls[currentWall].DisplayPattern();
-                }
-
-                if (walls[currentWall].wallSolved && currentWall != walls.Count - 1)
-                {
-                    changeWall = true;
-                }
-
-                if (walls[walls.Count - 1].wallSolved)
-                    ResetScene();
-
-                ChangeLives();
-
-                previousCollide = collidingWall;
+                changeWall = false;
+                currentWall++;
+                walls[currentWall].DisplayPattern();
             }
 
-            if (walls[0].wallSolved)
-            fakeWall.SetActive(false);
+            if (walls[currentWall].wallSolved && currentWall != walls.Count - 1)
+            {
+                changeWall = true;
+            }
 
-        previousCollide = collidingWall;       
+            if (walls[walls.Count - 1].wallSolved)
+                ResetScene();
+
+            if (walls[0].wallSolved)
+                fakeWall.SetActive(false);
+
+            ChangeLives();
+            previousCollide = collidingWall;
         }
-        
-        if(scoreText != null && liveText != null)
+
+        if (scoreText != null && liveText != null)
         {
             scoreText.text = "Score: " + score;
             liveText.text = "Lives: " + lives;
         }
-        
-        
 
+        shaderMaterial.SetColor("_EdgeColor", currentScenery.transform.GetChild(0).gameObject.GetComponent<Light>().color);
         if(teleportDis == 384)
         {
             Vector3 distance = transform.position - teleportPos;
@@ -147,6 +150,8 @@ public class PlayerMovement : MonoBehaviour
                 Teleport();
             }
         }
+
+        manager.score = score;
         
     }
 
@@ -163,8 +168,8 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             position.z -= teleportDis - (speed * Time.deltaTime);
-        gameObject.transform.position = position;
-        collidingWall = false;
+            gameObject.transform.position = position;
+            collidingWall = false;
         }
         
         
@@ -186,6 +191,7 @@ public class PlayerMovement : MonoBehaviour
             sceneryIndex++;
             Destroy(currentScenery);
             currentScenery = Instantiate(scenery[sceneryIndex], Vector3.zero, Quaternion.identity);
+            currentScenery.transform.GetChild(0).gameObject.GetComponent<Light>().color = currentDecor.transform.GetChild(0).gameObject.GetComponent<Light>().color;
         }
         if (score % 2 == 1)
         {
@@ -194,6 +200,10 @@ public class PlayerMovement : MonoBehaviour
         Destroy(currentDecor);
         Debug.Log(score % 2 == 0 ? "yes" : "no");
         currentDecor = Instantiate(scenery[prevSceneryIndex], Vector3.zero - new Vector3(0, 0, 128), Quaternion.identity);
+        if (score % 2 == 0)
+        {
+            //StartCoroutine(LerpScenes(currentDecor, currentScenery));
+        }
 
         Teleport();
         for (int i = 0; i < walls.Count; i++)
@@ -214,6 +224,12 @@ public class PlayerMovement : MonoBehaviour
     //Collision Detection
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("sceneChange"))
+        {
+            if (score % 2 == 0)
+                StartCoroutine(LerpScenes(currentDecor, currentScenery));
+            return;
+        }
          collidingWall = true;
     }
 
@@ -224,14 +240,47 @@ public class PlayerMovement : MonoBehaviour
 
     void ChangeLives()
     {
-        if(collidingWall && !previousCollide)
+        if (collidingWall && !previousCollide)
         {
             if (lives <= 0)
-                lives = 0;
+                manager.GameOver();
             else
                 lives--;
 
             walls[currentWall].Solve();
+        }
+    }
+
+    IEnumerator LerpScenes(GameObject prevscene, GameObject nextscene, float time = 0)
+    {
+        if (prevscene == null || nextscene == null)
+            yield break;
+
+        ChangeScenery nex = nextscene.transform.GetChild(1).gameObject.GetComponent<ChangeScenery>();
+        ChangeScenery pre = prevscene.transform.GetChild(1).gameObject.GetComponent<ChangeScenery>();
+
+        Color prev = pre.fogColor;
+        Color next = nex.fogColor;
+        Color prevl = pre.lightColor;
+        Color nextl = nex.lightColor;
+        Light prevLight = pre.light;
+        Light nextLight = nex.light;
+
+        nextLight.color = Color.Lerp(prevl, nextl, time);
+        prevLight.color = Color.Lerp(prevl, nextl, time);
+
+        RenderSettings.fogColor = Color.Lerp(prev, next, time);
+        float oneSixtieth = Time.deltaTime;
+        yield return new WaitForSeconds(oneSixtieth);
+        time += oneSixtieth / colorLerpSeconds;
+        if (time <= 1)
+        {
+            StartCoroutine(LerpScenes(prevscene, nextscene, time));
+        }
+        else
+        {
+            nextLight.color = Color.Lerp(prevl, nextl, 1);
+            prevLight.color = Color.Lerp(prevl, nextl, 1);
         }
     }
 }
