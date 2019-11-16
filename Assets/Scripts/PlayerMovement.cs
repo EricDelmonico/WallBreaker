@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UIManager>();
+        //manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<UIManager>();
 
         wallDestroyed = false;
         collidingWall = false;
@@ -107,6 +107,7 @@ public class PlayerMovement : MonoBehaviour
             wallDestroyed = walls[currentWall].Destroyed();
             if (wallDestroyed && collidingWall)
             {
+                StartCoroutine(SlowPlayerForSeconds(1));
                 collidingWall = false;
             }
 
@@ -148,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        manager.score = score;
+        //manager.score = score;
         
     }
 
@@ -227,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(LerpScenes(currentDecor, currentScenery));
             return;
         }
-         collidingWall = true;
+        collidingWall = true;
     }
 
     private void OnTriggerExit(Collider other)
@@ -281,5 +282,14 @@ public class PlayerMovement : MonoBehaviour
             nextLight.color = Color.Lerp(prevl, nextl, 1);
             prevLight.color = Color.Lerp(prevl, nextl, 1);
         }
+    }
+
+    IEnumerator SlowPlayerForSeconds(float seconds)
+    {
+        float pastSpeed = speed;
+        speed = 4;
+        yield return new WaitForSeconds(seconds);
+        Debug.Log(pastSpeed);
+        speed = pastSpeed;
     }
 }
