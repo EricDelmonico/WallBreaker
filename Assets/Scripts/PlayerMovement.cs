@@ -8,9 +8,6 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public float teleportDis;
 
-    [SerializeField]
-    private int lives;
-
     private Vector3 position;
     private Vector3 teleportPos;
 
@@ -62,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Teleports the player to the beginning of the chunck
+    /// Teleports the player to the beginning of the chunk
     /// </summary>
     void Teleport()
     {
