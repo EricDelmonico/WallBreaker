@@ -27,8 +27,6 @@ public class PlayerMovement : MonoBehaviour
     private GameObject currentScenery;
     private int sceneryIndex;
 
-    private int lives;
-
     // Start is called before the first frame update
     void Start()
     {
