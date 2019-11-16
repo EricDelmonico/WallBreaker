@@ -20,4 +20,10 @@ public class ChangeScenery : MonoBehaviour
     {
         
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        RenderSettings.fogColor = fogColor;
+        light.color = lightColor;
+    }
 }

@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 position;
     private Vector3 teleportPos;
+    private Vector3 initialPos;
 
     private List<MakeCubes> walls;
     private int currentWall;
@@ -39,8 +40,10 @@ public class PlayerMovement : MonoBehaviour
     {
         collidingWall = false;
 
+        initialPos = transform.position;
+
         position = gameObject.transform.position;
-        teleportPos = new Vector3(0, 0, teleportDis);
+        teleportPos = new Vector3(transform.position.x, transform.position.y, teleportDis);
 
         // Store all the walls found in the scene
         walls = new List<MakeCubes>();
@@ -72,27 +75,46 @@ public class PlayerMovement : MonoBehaviour
         position.z += (speed * Time.deltaTime);
         gameObject.transform.position = position;
 
-        if (changeWall && currentWall != walls.Count - 1)
+        if(walls.Count > 0)
         {
-            changeWall = false;
-            currentWall++;
-            walls[currentWall].DisplayPattern();
-        }
+            if (changeWall && currentWall != walls.Count - 1)
+            {
+                changeWall = false;
+                currentWall++;
+                walls[currentWall].DisplayPattern();
+            }
 
-        if (walls[currentWall].wallSolved && currentWall != walls.Count - 1)
+            if (walls[currentWall].wallSolved && currentWall != walls.Count - 1)
+            {
+                changeWall = true;
+            }
+
+            if (walls[walls.Count - 1].wallSolved)
+                ResetScene();
+
+            ChangeLives();
+
+            previousCollide = collidingWall;
+        }
+        
+        if(scoreText != null && liveText != null)
         {
-            changeWall = true;
+            scoreText.text = "Score: " + score;
+            liveText.text = "Lives: " + lives;
         }
+        
 
-        if (walls[walls.Count - 1].wallSolved)
-            ResetScene();
-
-        ChangeLives();
-
-        previousCollide = collidingWall;
-
-        scoreText.text = "Score: " + score;
-        liveText.text = "Lives: " + lives;
+        if(teleportDis == 384)
+        {
+            Debug.Log("Will teleport");
+            Vector3 distance = transform.position - teleportPos;
+            if (distance.magnitude < 0.5f && distance.magnitude > -0.5f)
+            {
+                Debug.Log("teleporting");
+                Teleport();
+            }
+        }
+        
     }
 
     /// <summary>
@@ -100,8 +122,17 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Teleport()
     {
-        position.z -= teleportDis - (speed * Time.deltaTime);
-        gameObject.transform.position = position;
+        if(teleportDis == 384)
+        {
+            position.z -= 484;
+            gameObject.transform.position = position;
+        }
+        else
+        {
+            position.z -= teleportDis - (speed * Time.deltaTime);
+            gameObject.transform.position = position;
+        }
+        
     }
 
     void ResetScene()
