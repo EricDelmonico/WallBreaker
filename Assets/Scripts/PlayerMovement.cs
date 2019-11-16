@@ -21,6 +21,14 @@ public class PlayerMovement : MonoBehaviour
     private bool collidingWall;
     private bool previousCollide;
 
+    private int score;
+    [SerializeField]
+    private GameObject[] scenery;
+    private GameObject currentScenery;
+    private int sceneryIndex;
+
+    private int lives;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +49,14 @@ public class PlayerMovement : MonoBehaviour
         }
         currentWall = -1;
         changeWall = true;
+
+        score = 0;
+        sceneryIndex = 0;
+        if (scenery != null)
+        {
+            currentScenery = Instantiate(scenery[sceneryIndex], Vector3.zero, Quaternion.identity);
+            sceneryIndex++;
+        }
     }
 
     // Update is called once per frame
@@ -81,7 +97,18 @@ public class PlayerMovement : MonoBehaviour
 
     void ResetScene()
     {
-        // score++
+        score++;
+        if (score % 3 == 0)
+        {
+            currentScenery = Instantiate(scenery[0], Vector3.zero, Quaternion.identity);
+            // if all the scenery has been cycled 
+            // through, loop back to the beginning
+            if (sceneryIndex + 1 >= scenery.Length)
+            {
+                sceneryIndex = -1;
+            }
+            sceneryIndex++;
+        }
 
         Teleport();
         for (int i = 0; i < walls.Count; i++)
