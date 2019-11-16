@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,9 +17,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mainMenu.SetActive(true);
-        gameMenu.SetActive(false);
-        gameOverMenu.SetActive(false);
+        ToMainMenu();
     }
 
     // Update is called once per frame
@@ -31,6 +30,20 @@ public class UIManager : MonoBehaviour
     {
         mainMenu.SetActive(false);
         gameMenu.SetActive(true);
+        gameOverMenu.SetActive(false);
+    }
+
+    void GameOver()
+    {
+        mainMenu.SetActive(false);
+        gameMenu.SetActive(false);
+        gameOverMenu.SetActive(true);
+    }
+
+    void ToMainMenu()
+    {
+        mainMenu.SetActive(true);
+        gameMenu.SetActive(false);
         gameOverMenu.SetActive(false);
     }
 
