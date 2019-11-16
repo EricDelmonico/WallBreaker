@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -22,10 +23,16 @@ public class PlayerMovement : MonoBehaviour
     private bool previousCollide;
 
     private int score;
+
     [SerializeField]
     private GameObject[] scenery;
     private GameObject currentScenery;
     private int sceneryIndex;
+
+    [SerializeField]
+    private Text scoreText;
+    [SerializeField]
+    private Text liveText;
 
     // Start is called before the first frame update
     void Start()
