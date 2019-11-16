@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public float teleportDis;
 
+    [SerializeField]
+    private int lives;
+
     private Vector3 position;
     private Vector3 teleportPos;
 
