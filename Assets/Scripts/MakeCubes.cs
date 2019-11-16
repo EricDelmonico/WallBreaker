@@ -17,7 +17,7 @@ public class MakeCubes : MonoBehaviour
     [SerializeField]
     private Material dissolveMaterial;
 
-    private bool wallSolved;
+    public bool wallSolved;
     [SerializeField]
     private GameObject dissolveWall;
 
@@ -39,15 +39,15 @@ public class MakeCubes : MonoBehaviour
         {
             for (int j = 0; j < size; j++)
             {
-                GameObject temp = Instantiate(cube, new Vector3(x + cubeDimension * j, y + cubeDimension * i, 0), Quaternion.identity);
+                GameObject temp = Instantiate(cube, transform.position + new Vector3(x + cubeDimension * j, y + cubeDimension * i, 0), Quaternion.identity);
                 temp.transform.parent = transform;
-                temp.name = "i should be gone!";
+                temp.name = "haha hey guys whats up";
                 wall[i, j] = temp.GetComponent<CubeScript>();
             }
         }
 
         RandomWall();
-        StartCoroutine(DisplayForSeconds(1.75f));
+        DisplayPattern();
     }
 
     // Update is called once per frame
@@ -87,7 +87,10 @@ public class MakeCubes : MonoBehaviour
             GameObject dissolveWallInstance = Instantiate(dissolveWall, midWall, Quaternion.identity);
             float desiredGirth = size * _g.GetComponent<MeshRenderer>().bounds.size.x;
             dissolveWallInstance.transform.localScale = new Vector3(desiredGirth, desiredGirth, 1);
-            Destroy(gameObject);
+            for (int i = transform.childCount - 1; i > -1; i--)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            } 
         }
     }
 
@@ -117,8 +120,9 @@ public class MakeCubes : MonoBehaviour
         }
     }
 
-    private void ResetWall()
+    public void ResetWall()
     {
+        wallSolved = false;
         int size = cubemap.GetLength(0);
         cubemap = new int[size + 1, size + 1];
         wall = new CubeScript[size + 1, size + 1];
@@ -133,13 +137,11 @@ public class MakeCubes : MonoBehaviour
         {
             for (int j = 0; j < size; j++)
             {
-                GameObject temp = Instantiate(cube, new Vector3(x + cubeDimension * j, y + cubeDimension * i, 0), Quaternion.identity);
+                GameObject temp = Instantiate(cube, transform.position + new Vector3(x + cubeDimension * j, y + cubeDimension * i, 0), Quaternion.identity);
                 temp.transform.parent = transform;
                 wall[i, j] = temp.GetComponent<CubeScript>();
             }
         }
-
-        StartCoroutine(DisplayForSeconds(1.75f));
     }
 
     IEnumerator DisplayForSeconds(float seconds)
@@ -169,5 +171,10 @@ public class MakeCubes : MonoBehaviour
                 wall[i, j].displaying = false;
             }
         }
+    }
+
+    public void DisplayPattern()
+    {
+        StartCoroutine(DisplayForSeconds(1.75f));
     }
 }
