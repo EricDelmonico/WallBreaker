@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: f08b7bc8535984c4f80ebac3722398c6
+<<<<<<< HEAD:Assets/ScenePrototype.unity.meta
+guid: 15d1d372545c07943a64b62d155eb226
+=======
+guid: 8ae8cd852a888bc4aa94fbb2c869b435
+>>>>>>> parent of 8c609fd... Scenery1:Assets/Scripts.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
