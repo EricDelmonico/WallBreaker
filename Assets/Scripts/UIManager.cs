@@ -22,9 +22,8 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ToMainMenu();
-
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
+        ToMainMenu();      
     }
 
     // Update is called once per frame
@@ -41,10 +40,11 @@ public class UIManager : MonoBehaviour
 
     public void GameOver()
     {
+        
         SceneManager.LoadScene(0);
         mainMenu.SetActive(false);
         gameOverMenu.SetActive(true);
-        
+
     }
 
     public void ToMainMenu()
@@ -52,6 +52,7 @@ public class UIManager : MonoBehaviour
         mainMenu.SetActive(true);
         gameOverMenu.SetActive(false);
         finalScore.text = "Final Score: " + score;
+
     }
 
     public void QuitGame()

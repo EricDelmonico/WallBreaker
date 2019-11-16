@@ -240,7 +240,9 @@ public class PlayerMovement : MonoBehaviour
         if (collidingWall && !previousCollide)
         {
             if (lives <= 0)
+            {
                 manager.GameOver();
+            }            
             else
                 lives--;
 
