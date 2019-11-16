@@ -1000,6 +1000,7 @@ MonoBehaviour:
   scoreText: {fileID: 1635348720}
   liveText: {fileID: 302426382}
   fakeWall: {fileID: 2083653304}
+  shaderMaterial: {fileID: 2100000, guid: 944394e579c20bf4cb65970509d9490c, type: 2}
 --- !u!65 &447503690
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1188,6 +1189,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: dw
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009997722769589299, guid: 690421e648bd64f42983fc1a84a6549f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1971397645331601877, guid: 690421e648bd64f42983fc1a84a6549f,
         type: 3}
@@ -1787,7 +1793,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 893114173}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.8, z: -75.75}
+  m_LocalPosition: {x: 0, y: 4.84, z: -95.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3281,7 +3287,7 @@ PrefabInstance:
     - target: {fileID: 4426380413876124783, guid: bb44e7bf21b759244a2802dc29df90b2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -118.01
+      value: -97.16
       objectReference: {fileID: 0}
     - target: {fileID: 4426380413876124783, guid: bb44e7bf21b759244a2802dc29df90b2,
         type: 3}
