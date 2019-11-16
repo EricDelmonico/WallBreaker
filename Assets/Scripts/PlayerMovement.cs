@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         position.z += (speed * Time.deltaTime);
         gameObject.transform.position = position;
 
-        if(walls.Count > 0)
+        if (walls.Count > 0)
         {
             wallDestroyed = walls[currentWall].Destroyed();
             if (wallDestroyed && collidingWall)
@@ -109,42 +109,31 @@ public class PlayerMovement : MonoBehaviour
 
             if (changeWall && currentWall != walls.Count - 1)
             {
-                if (changeWall && currentWall != walls.Count - 1)
-                {
-                    changeWall = false;
-                    currentWall++;
-                    walls[currentWall].DisplayPattern();
-                }
-
-                if (walls[currentWall].wallSolved && currentWall != walls.Count - 1)
-                {
-                    changeWall = true;
-                }
-
-                if (walls[walls.Count - 1].wallSolved)
-                    ResetScene();
-
-                ChangeLives();
-
-                previousCollide = collidingWall;
+                changeWall = false;
+                currentWall++;
+                walls[currentWall].DisplayPattern();
             }
 
-            if (walls[0].wallSolved)
-            fakeWall.SetActive(false);
+            if (walls[currentWall].wallSolved && currentWall != walls.Count - 1)
+            {
+                changeWall = true;
+            }
 
-        previousCollide = collidingWall;       
+            if (walls[walls.Count - 1].wallSolved)
+                ResetScene();
+
+            if (walls[0].wallSolved)
+                fakeWall.SetActive(false);
+
+            ChangeLives();
+            previousCollide = collidingWall;
         }
-        
-        if(scoreText != null && liveText != null)
+
+        if (scoreText != null && liveText != null)
         {
             scoreText.text = "Score: " + score;
             liveText.text = "Lives: " + lives;
         }
-        
-        
-
-        scoreText.text = "Score: " + score;
-        liveText.text = "Lives: " + lives;
 
         shaderMaterial.SetColor("_EdgeColor", currentScenery.transform.GetChild(0).gameObject.GetComponent<Light>().color);
         if(teleportDis == 384)
@@ -171,8 +160,8 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             position.z -= teleportDis - (speed * Time.deltaTime);
-        gameObject.transform.position = position;
-        collidingWall = false;
+            gameObject.transform.position = position;
+            collidingWall = false;
         }
         
         
@@ -243,7 +232,7 @@ public class PlayerMovement : MonoBehaviour
 
     void ChangeLives()
     {
-        if(collidingWall && !previousCollide)
+        if (collidingWall && !previousCollide)
         {
             if (lives <= 0)
                 lives = 0;
