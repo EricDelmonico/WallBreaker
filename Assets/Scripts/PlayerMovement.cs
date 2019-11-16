@@ -8,8 +8,13 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public float teleportDis;
 
+    [SerializeField]
+    private int lives;
+
     private Vector3 position;
     private Vector3 teleportPos;
+
+    private MakeCubes makeCubes;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +30,8 @@ public class PlayerMovement : MonoBehaviour
         position.z += (speed * Time.deltaTime);
         gameObject.transform.position = position;
 
-        if(gameObject.transform.position.z > teleportPos.z)
-            Teleport();
+        //if(gameObject.transform.position.z > teleportPos.z)
+        //    Teleport();
     }
 
     /// <summary>
@@ -36,5 +41,10 @@ public class PlayerMovement : MonoBehaviour
     {
         position.z -= teleportDis;
         gameObject.transform.position = position;
+    }
+    
+    void TestCollision()
+    {
+
     }
 }
